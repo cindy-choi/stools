@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import ROUTES from '@/constants/routes';
@@ -6,50 +6,34 @@ import { useNavigate, useLocation } from 'react-router';
 
 const HeaderWrapper = styled.div`
   width: 100%;
-  height: 100px;
-  overflow: hidden;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.05);
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .header__inner {
-    width: 100%;
-    max-width: 1024px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  padding: 0 2rem;
 
   .logo {
-    img { width: 175px; height: 33px; }
     cursor: pointer;
+    font-size: 2.5rem;
   }
-
   .menu-list {
     display: flex;
     margin-left: auto;
-    align-items: center;
   }
 
   .menu-item {
-    height: 60px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    &.active {
+      font-weight: 500;
+      color: var(--white);
+    }
+    font-family: 'Material Icons';
+    color: var(--black-80);
+    padding: 0 20px;
     cursor: pointer;
-    color: var(--black-50);
-
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 1rem;
     font-weight: 400;
 
-    &:hover { color: var(--black-80); }
-    &.active, &:active { color: var(--primary); }
-    &.current { color: var(--primary); }
-    &.disabled { color: var(--black-15); }
+    &:hover { color: var(--primary); }
   }
 `;
 
@@ -59,23 +43,26 @@ export const TheHeader = () => {
   const location = useLocation();
 
   const menuList = [
-    { title: t('menu.main'), href: ROUTES.ROOT, },
-    { title: t('menu.about'), href: ROUTES.ABOUT, },
+    { title: t('menu.projects'), href: ROUTES.PROJECTS, },
+    { title: t('menu.issues'), href: ROUTES.ISSUES, },
+    { title: t('menu.statistics'), href: ROUTES.STATISTICS, },
   ];
 
   const handleMenuItemClick = (href: string) => {
+    if (!href) return;
+    console.log(href);
     navigate(href);
   };
 
   const isActive = (href: string) => {
+    console.log(href);
     return location.pathname.startsWith(href) ? 'active' : '';
   };
   
   return (
     <HeaderWrapper>
-      <div className="header__inner">
         <div className="logo" onClick={() => handleMenuItemClick(ROUTES.ROOT)}>
-          <p>Sample</p>
+          <p>&#128302;</p>
         </div>
 
         <div className="menu-list">
@@ -87,7 +74,6 @@ export const TheHeader = () => {
             ))
           }
         </div>
-      </div>
     </HeaderWrapper>
   );
 };

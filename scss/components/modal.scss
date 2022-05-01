@@ -1,0 +1,14 @@
+div.modal-dialog div.modal-content {
+  border: none;
+}
+
+div.modal-dialog div.modal-content div.modal-header {
+  button { font-size: 10px; }
+}
+
+div.modal-dialog div.modal-content div.modal-footer {
+  padding: 8px 0 8px 24px;
+  border: none;
+
+  button { min-width: 4rem; }
+}

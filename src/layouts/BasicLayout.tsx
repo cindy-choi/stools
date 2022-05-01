@@ -15,6 +15,7 @@ const StyledBasicLayout = styled.div`
 
   .router-view {
     width: 100%;
+    height: calc(100vh - 80px); /* header */
     overflow: hidden;
   }
 `;

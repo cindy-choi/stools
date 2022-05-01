@@ -1,0 +1,15 @@
+div.form-group {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  align-items: center;
+  margin-bottom: .7rem;
+
+  label.form-label {
+    margin: 0;
+    color: var(--black-80);
+  }
+
+  input.form-control {
+    border-radius: 20px;
+  }
+}
