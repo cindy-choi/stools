@@ -7,7 +7,7 @@ import IssueList from './IssueList';
 
 const IssuesWrapper = styled.div`
   display: grid;
-  grid-template-columns: 7fr 3fr;
+  grid-template-columns: 8fr 2fr;
   grid-template-rows: 100%;
   width: 100%;
   height: 100%;

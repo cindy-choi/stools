@@ -18,37 +18,32 @@ const IssueListWrapper = styled.div`
 const List = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  background: var(--black-05);
   border-radius: 8px;
-  margin-top: 24px;
   width: 100%;
-  height: calc(100% - 3rem - 24px);
+  height: 100%;
   padding: 24px;
   overflow: hidden;
+  border: 2px dashed var(--black);
 `;
 
 const Item = styled.div<{ active: boolean }>`
   display: flex;
   width: 100%;
-  height: 2rem;
+  height: 3rem;
   align-items: center;
+  border-radius: 8px;
   justify-content: space-between;
   overflow: hidden;
   cursor: pointer;
-  border-radius: 20px;
   padding: 0 12px;
   transition: .3s ease;
 
   &:hover {
-    background: var(--white-80);
+    background: var(--primary-30);
   }
 
-  // border: 2px solid var(--primary);
-  // background: var(--primary-30);
-
   span.dot {
-    // background: var(--primary);
+    background: var(--primary);
     border: 1px solid var(--primary);
     width: 10px;
     height: 10px;
@@ -63,7 +58,6 @@ const Item = styled.div<{ active: boolean }>`
     white-space: nowrap;
     color: var(--black-60);
     margin-right: auto;
-    // color: var(--white);
   }
 `;
 
@@ -108,10 +102,6 @@ function IssueList({ selected, onSelect, }: { selected?: Issue | null, onSelect:
 
   return (
     <IssueListWrapper>
-      <div className="utils">
-        <AddButton onClick={handleClickAdd}> + </AddButton>
-      </div>
-
       <List>
         {
           issues?.length > 0 ? (
