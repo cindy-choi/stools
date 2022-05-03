@@ -24,6 +24,9 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
     --primary: #886ce4;
     --primary-30: #886ce44d;
     --primary-50: #886ce480;
+    --secondary:    #ffce37;
+    --secondary-30: #ffce374d;
+    --secondary-50: #ffce3780;
 
     --black: rgba(0, 0, 0, 1);
     --black-05: rgba(0, 0, 0, 0.05);

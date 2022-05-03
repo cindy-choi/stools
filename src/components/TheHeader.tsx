@@ -22,18 +22,45 @@ const HeaderWrapper = styled.div`
   }
 
   .menu-item {
-    &.active {
-      font-weight: 500;
-      color: var(--white);
-    }
+    display: flex;
+    flex-direction: column;
+    font-weight: 400;
     font-family: 'Material Icons';
     color: var(--black-80);
     padding: 0 20px;
     cursor: pointer;
     font-size: 1rem;
-    font-weight: 400;
+    transition: .3s ease;
 
-    &:hover { color: var(--primary); }
+    &:hover:not(.active) {
+      .underline {
+        width: 130%;
+        background-color: var(--secondary);
+      }
+    }
+
+    &.active {
+      transform: scale(1.2);
+      font-weight: 700;
+      color: var(--black);
+
+      .underline {
+        width: 130%;
+        background-color: var(--primary);
+        opacity: .8;
+      }
+    }
+  }
+
+  .menu-item .underline {
+    height: 20px;
+    width: 0;
+    transform: skewX(-10deg);
+    background-color: var(--primary);
+    transition: .3s ease;
+    position: relative;
+    top: -10px;
+    z-index:-1;
   }
 `;
 
@@ -50,12 +77,10 @@ export const TheHeader = () => {
 
   const handleMenuItemClick = (href: string) => {
     if (!href) return;
-    console.log(href);
     navigate(href);
   };
 
   const isActive = (href: string) => {
-    console.log(href);
     return location.pathname.startsWith(href) ? 'active' : '';
   };
   
@@ -70,6 +95,7 @@ export const TheHeader = () => {
             menuList.map(menu => (
               <div key={menu.title} className={`menu-item ${isActive(menu.href)}`} onClick={() => handleMenuItemClick(menu.href)}>
                 { menu.title }
+                <div className="underline"></div>
               </div>
             ))
           }

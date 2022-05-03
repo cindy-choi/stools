@@ -2,7 +2,6 @@ import React, { useState, useEffect, } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import Storage from '@/storage';
-import IssueStatus from '@/components/IssueStatus';
 import AddIssueModal from './AddIssueModal';
 import type Issue from '@/types/Issue';
 
@@ -120,7 +119,6 @@ function IssueList({ selected, onSelect, }: { selected?: Issue | null, onSelect:
               <Item active={selected?.id === issue.id} onClick={() => handleSelect(issue)}>
                 <span className="dot" />
                 <div className="title">{ issue.title }</div>
-                <IssueStatus status={issue.status} />
               </Item>
             )
           ) : (

@@ -1,32 +1,33 @@
-@font-face {
-  font-family: 'Noto Sans';
-  font-display: swap;
-  src: url('../src/assets/fonts/NotoSans-Light.ttf');
-  font-weight: 300;
-}
+// @font-face {
+//   font-family: 'Noto Sans';
+//   font-display: swap;
+//   src: url('../src/assets/fonts/NotoSans-Light.ttf');
+//   font-weight: 300;
+// }
+// 
+// @font-face {
+//   font-family: 'Noto Sans';
+//   font-display: swap;
+//   src: url('../src/assets/fonts/NotoSans-Regular.ttf');
+//   font-weight: 400;
+// }
+// 
+// @font-face {
+//   font-family: 'Noto Sans';
+//   font-display: swap;
+//   src: url('../src/assets/fonts/NotoSans-Medium.ttf');
+//   font-weight: 500;
+// }
+// 
+// @font-face {
+//   font-family: 'Noto Sans';
+//   font-display: swap;
+//   src: url('../src/assets/fonts/NotoSans-Bold.ttf');
+//   font-weight: 700;
+// }
 
-@font-face {
-  font-family: 'Noto Sans';
-  font-display: swap;
-  src: url('../src/assets/fonts/NotoSans-Regular.ttf');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-display: swap;
-  src: url('../src/assets/fonts/NotoSans-Medium.ttf');
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  font-display: swap;
-  src: url('../src/assets/fonts/NotoSans-Bold.ttf');
-  font-weight: 700;
-}
-
-$font-family-base: 'Noto Sans', sans-serif;
+// $font-family-base: 'Noto Sans', sans-serif;
+$font-family-base: 'Roboto Mono', monospace;
 
 body,
 pre, code, kbd, samp, div,
@@ -34,15 +35,39 @@ input, button, select, optgroup, textarea {
   font-family: $font-family-base !important;
 }
 
-/* Icon Fonts */
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
   src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-       url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-       url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+   local('MaterialIcons-Regular'),
+   url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+   url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+   url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }

@@ -1,8 +1,15 @@
 import React, { useState, useEffect, } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import StatusManager from './StatusManager';
+import Button from 'react-bootstrap/Button';
 import type Issue from '@/types/Issue';
+
+const IconButton = styled.div`
+  display: flex;
+  algin-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
 
 const ActiveIssueWrapper = styled.div`
   height: 100%;
@@ -21,15 +28,19 @@ const TimeTracker = styled.div`
   background: var(--black-05);
   display: flex;
   flex-direction: column;
-  padding: 24px;
   align-items: center;
 
   .issue-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     word-break: break-word;
     white-space: break-spaces;
     border-bottom: 1px solid var(--black-05);
     margin-bottom: 24px;
-    padding: 12px;
+    padding: 24px;
 
     h2 {
       font-size: 3rem;
@@ -38,7 +49,7 @@ const TimeTracker = styled.div`
     }
   }
 
-  p.status {
+  p.count {
     margin-right: 10rem;
     font-size: 12px;
     border-radius: 20px;
@@ -46,7 +57,6 @@ const TimeTracker = styled.div`
     color: var(--black-50);
     padding: 8px 12px;
   }
-  
 
   .timer {
     display: flex;
@@ -58,6 +68,28 @@ const TimeTracker = styled.div`
     text-align: center;
     p { margin: 0 8px; }
   }
+
+  .actions {
+    margin-top: 10%;
+  }
+
+  .save {
+    width: 100%;
+    height: 20px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--black-40);
+    span { font-size: 1rem; }
+
+    &:hover {
+      background: var(--white-40);
+    }
+  }
+
+
 `;
 
 const History = styled.div`
@@ -70,6 +102,9 @@ function ActiveIssue({ issue }: { issue: Issue|null, }) {
   const hours = '01';
   const minutes = '20';
   const { t } = useTranslation();
+  const [play, setPlay] = useState<boolean>(false);
+
+  const handleSave = () => {};
 
   return (
     <ActiveIssueWrapper>
@@ -79,21 +114,26 @@ function ActiveIssue({ issue }: { issue: Issue|null, }) {
             <TimeTracker>
               <div className="issue-info">
                 <h2>{ issue?.title }</h2>
-                <a href={issue?.link}>{ issue?.link  || t('issue.no.link') }</a>
+                <a target="_blank" href={issue?.link}>{ issue?.link  || t('issue.no.link') }</a>
               </div>
 
-              <p className="status">{ t(`issue.status.${issue?.status}`) }</p>
+              <p className="count">Lap 1</p>
 
               <div className="timer">
-                <div className="hour">{ hours }</div>
+                <div className="hour">{ hours||'--' }</div>
                 <p> : </p>
-                <div className="minute">{ minutes }</div>
+                <div className="minute">{ minutes||'--' }</div>
               </div>
 
-              <StatusManager
-                defaultStatus={issue?.status}
-              />
+              <div className="actions">
+                <IconButton onClick={() => setPlay(!play)}>
+                  { play ?  <span className="material-icons"> play_arrow </span> : <span className="material-icons"> pause </span> }
+                </IconButton>
+              </div>
 
+              <div className="save" onClick={handleSave}>
+                <span className="material-icons"> save_alt </span>
+              </div>
             </TimeTracker>
             <div className="additional-info">
               <History>
