@@ -1,5 +1,7 @@
 div.modal-dialog div.modal-content {
   border: none;
+  width: fit-content;
+  border-radius: 8px;
 }
 
 div.modal-dialog div.modal-content div.modal-header {
@@ -10,5 +12,7 @@ div.modal-dialog div.modal-content div.modal-footer {
   padding: 8px 0 8px 24px;
   border: none;
 
-  button { min-width: 4rem; }
+  button { min-width: 5rem; }
 }
+
+div.modal-backdrop.show { opacity: .8; }

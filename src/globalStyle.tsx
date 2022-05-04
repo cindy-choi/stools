@@ -20,13 +20,29 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
   a { text-decoration: none; cursor: pointer; }
   p,span { margin: 0; }
 
+  .cursor-pointer { cursor: pointer; }
+
   :root {
-    --primary: #886ce4;
-    --primary-30: #886ce44d;
-    --primary-50: #886ce480;
+    --primary: rgba(136, 108, 228, 1);
+    --primary-10: rgba(136, 108, 228, 0.1);
+    --primary-20: rgba(136, 108, 228, 0.2);
+    --primary-30: rgba(136, 108, 228, 0.3);
+    --primary-40: rgba(136, 108, 228, 0.4);
+    --primary-50: rgba(136, 108, 228, 0.5);
+    --primary-60: rgba(136, 108, 228, 0.6);
+    --primary-70: rgba(136, 108, 228, 0.7);
+    --primary-80: rgba(136, 108, 228, 0.8);
+    --primary-90: rgba(136, 108, 228, 0.9);
+
     --secondary:    #ffce37;
     --secondary-30: #ffce374d;
     --secondary-50: #ffce3780;
+
+    --error: red;
+    --green: #04ff00;
+    --yellow: #ffc800;
+    --red: #ff0085;
+    --dark-red: #c90069;
 
     --black: rgba(0, 0, 0, 1);
     --black-05: rgba(0, 0, 0, 0.05);

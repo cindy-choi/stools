@@ -19,7 +19,7 @@ function Test() {
       </BoxButton>
 
       <div style={{'background': 'black'}}>
-        <BoxButton variant="light" boxType="parallelogram" style={{ margin: '4rem', }}>
+        <BoxButton variant="white" boxType="parallelogram" style={{ margin: '4rem', }}>
           <span className="material-icons">face</span>
         </BoxButton>
       </div>

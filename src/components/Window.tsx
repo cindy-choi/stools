@@ -14,7 +14,7 @@ const StyledWindow = styled.div`
 
 const Head = styled.div`
   width: 100%;
-  height: 30px;
+  height: 2.3rem;
   border-bottom: 2px solid var(--black);
   background: var(--primary);
   display: flex;
@@ -28,11 +28,12 @@ const Head = styled.div`
     border: 2px solid var(--black);
     border-radius: 50%;
 
-    &.first { background: #04ff00; }
-    &.second { background: #ffc800; }
-    &.third { background: #ff0085; }
+    &.first { background: var(--green); }
+    &.second { background: var(--yellow); }
+    &.third { background: var(--red); }
   }
 `;
+
 const Body = styled.div`
 `;
 
@@ -40,15 +41,16 @@ const Body = styled.div`
 type WindowProps = React.PropsWithChildren<{
   children?: React.ReactNode;
   variant?: "primary" | "secondary" | "light" | "dark";
+  onClickClose?: () => void
 }> & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
-export function Window({ children, variant = "primary", ...rest }: WindowProps ) {
+export function Window({ children, variant = "primary", onClickClose,  ...rest }: WindowProps ) {
   return (
     <StyledWindow className={`${variant} ${rest.className}`} style={rest.style}>
       <Head>
         <div className="dot first" />
         <div className="dot second" />
-        <div className="dot third" />
+        <div className={`dot third ${onClickClose ? 'cursor-pointer' : ''}`} onClick={onClickClose} />
       </Head>
       <Body>
         { children }

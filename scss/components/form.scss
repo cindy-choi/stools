@@ -12,5 +12,16 @@ div.form-group {
   input.form-control {
     border-radius: 8px;
     box-shadow: 7px 5px 0px 0px var(--black);
+    border: 2px solid var(--black);
+  }
+
+  &.error {
+    label.form-label {
+      color: var(--error);
+    }
+    input.form-control {
+      box-shadow: 7px 5px 0px 0px var(--error);
+      border: 2px solid var(--error);
+    }
   }
 }

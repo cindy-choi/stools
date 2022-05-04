@@ -1,1 +1,12 @@
 button.btn { border-radius: 20px; }
+
+button.btn-dark:hover {
+  background-color: var(--black-70);
+  border-color: var(--black-70);
+}
+
+button.btn-dark:active,
+button.btn-dark:focus {
+  background-color: var(--black-90);
+  border-color: var(--black-90);
+}

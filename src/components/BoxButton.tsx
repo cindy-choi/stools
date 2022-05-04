@@ -1,56 +1,79 @@
 import styled from 'styled-components';
 
-const StyledButtonWrapper = styled.div<{ variant: string, boxType: string }>`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 2px solid ${props => props.variant === 'light' ? 'var(--white)' : 'var(--black)'};
-  width: fit-content;
-  height: fit-content;
-  box-shadow: -webkit-box-shadow: 7px 5px 0px 0px ${props => props.variant === 'light' ? 'var(--white)' : 'var(--black)'}; 
-  padding: 8px 20px;
-  box-shadow: 7px 5px 0px 0px ${props => props.variant === 'light' ? 'var(--white)' : 'var(--black)'};
-  color: ${props => props.variant === 'light' ? 'var(--white)' : 'var(--black)'};
-  background: var(--${props => props.variant});
-  transform: ${props => props.boxType === 'parallelogram' ? ' skewX(-10deg)' : 'none'};
-  border-radius: ${props => props.boxType === 'rounded' ? '20px' :'0'};
-`;
+const StyledButtonWrapper = styled.div<{ variant: string, boxType: string, width: string, height: string}>`
+  width: ${props => props.width};
+  height: ${props => props.height};
+  overflow: visible;
+  cursor: pointer;
+  > div { transition: .2s ease; }
 
-const Head = styled.div`
-  width: 100%;
-  height: 30px;
-  border-bottom: 2px solid var(--black);
-  background: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 8px;
-
-  div.dot {
-    width: 15px;
-    height: 15px;
-    border: 2px solid var(--black);
-    border-radius: 50%;
-
-    &.first { background: #04ff00; }
-    &.second { background: #ffc800; }
-    &.third { background: #ff0085; }
+  div.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid ${props => props.variant === 'white' ? 'var(--white)' : 'var(--black)'};
+    width: ${props => props.width};
+    height: ${props => props.height};
+    color: ${props => props.variant === 'white' ? 'var(--white)' : 'var(--black)'};
+    background: var(--${props => props.variant});
+    transform: ${props => props.boxType === 'parallelogram' ? ' skewX(-10deg)' : 'none'};
+    border-radius: ${props => props.boxType === 'rounded' ? '20px' :'0'};
+    position: relative;
+    top: -${props => props.height};
   }
-`;
-const Body = styled.div`
+
+  div.shadow {
+    width: ${props => props.width};
+    height: ${props => props.height};
+    background: ${props => props.variant === 'white' ? 'var(--white)' : 'var(--black)'};
+    position: relative;
+    top: 7px;;
+    left: 5px
+  }
+
+  &:hover:not(:active):not(:focus) {
+    div.body {
+      color: var(--red);
+      border-color: var(--red);
+    }
+    div.shadow {
+      background: var(--red);
+    }
+  }
+  &:active, &:focus {
+    div.body {
+      background: var(--${props => props.variant}-90);
+      transform: translateX(3px) translateY(4px);
+    }
+  }
 `;
 
 
 type BoxButtonProps = React.PropsWithChildren<{
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "light" | "dark";
+  variant?: "primary" | "secondary" | "white" | "black";
   boxType?: "rectangle" | "parallelogram" | "rounded";
-}> & React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
+  width?: string;
+  height?: string;
+}> & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
-export function BoxButton({ children, variant = "primary", boxType = "rectangle", ...rest }: BoxButtonProps ) {
+export function BoxButton({ children, width = '9rem', height = '2.5rem', variant = "primary", boxType = "rectangle", ...rest }: BoxButtonProps ) {
   return (
-    <StyledButtonWrapper variant={variant} boxType={boxType} className={rest.className} style={rest.style}>
-    { children }
+    <StyledButtonWrapper
+      variant={variant}
+      boxType={boxType}
+      width={width}
+      height={height}
+      className={rest.className}
+      style={rest.style}
+      onClick={rest.onClick}
+    > 
+      <div className="shadow"></div>
+      <div className="body">
+        { children }
+      </div>
     </StyledButtonWrapper>
   );
 };

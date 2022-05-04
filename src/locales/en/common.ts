@@ -8,6 +8,8 @@ export const common = {
   'issue.status.processing': 'Processing',
   'issue.status.holding': 'Holding',
   'issue.status.finished': 'Finished',
+
+  'add': 'Add',
 };
 
 export default common;
