@@ -6,6 +6,7 @@ import BasicLayout from '@/layouts/BasicLayout';
 import Main from '@/pages/Main';
 import Projects from '@/pages/Projects';
 import Issues from '@/pages/Issues';
+import IssueDetail from '@/pages/Issues/Detail';
 import Statistics from '@/pages/Statistics';
 
 import Test from '@/pages/Test';
@@ -21,6 +22,7 @@ export const RouterConfig = () => {
           <Route path={ROUTES.ROOT} element={<Main />} />
           <Route path={ROUTES.PROJECTS} element={<Projects />} />
           <Route path={ROUTES.ISSUES} element={<Issues />} />
+          <Route path={`${ROUTES.ISSUES}/:id`} element={<IssueDetail />} />
           <Route path={ROUTES.STATISTICS} element={<Statistics />} />
 
           <Route path='/test' element={<Test />} />

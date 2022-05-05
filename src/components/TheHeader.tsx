@@ -86,20 +86,20 @@ export const TheHeader = () => {
   
   return (
     <HeaderWrapper>
-        <div className="logo" onClick={() => handleMenuItemClick(ROUTES.ROOT)}>
-          <p>&#128302;</p>
-        </div>
+      <div className="logo" onClick={() => handleMenuItemClick(ROUTES.ROOT)}>
+        <p>&#128302;</p>
+      </div>
 
-        <div className="menu-list">
-          {
-            menuList.map(menu => (
-              <div key={menu.title} className={`menu-item ${isActive(menu.href)}`} onClick={() => handleMenuItemClick(menu.href)}>
-                { menu.title }
-                <div className="underline"></div>
-              </div>
-            ))
-          }
-        </div>
+      <div className="menu-list">
+        {
+          menuList.map(menu => (
+            <div key={menu.title} className={`menu-item ${isActive(menu.href)}`} onClick={() => handleMenuItemClick(menu.href)}>
+              { menu.title }
+              <div className="underline"></div>
+            </div>
+          ))
+        }
+      </div>
     </HeaderWrapper>
   );
 };

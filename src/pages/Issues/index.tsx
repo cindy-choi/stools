@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Storage from '@/storage';
 import BoxButton from '@/components/BoxButton';
+import { useNavigate } from 'react-router-dom';
 
-import Detail from './Detail';
 import AddIssueModal from './AddIssueModal';
 
 import type Issue from '@/types/Issue';
@@ -172,9 +172,9 @@ const SideSlider = styled.div<{ open: boolean }>`
 `;
 
 export const Issues = () => {
+  const navigate = useNavigate();
   const [openRecent, setOpenRecent] = useState<boolean>(false);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
-  const [selected, setSelected] = useState<Issue|null>(null);
   const [issues, setIssues] = useState<Array<Issue>|null>(null);
   const [todos, setTodos] = useState<Array<Issue>|null>(null);
   const [doings, setDoings] = useState<Array<Issue>|null>(null);
@@ -189,6 +189,10 @@ export const Issues = () => {
   const handleAddClose = () => {
     setOpenAddModal(false);
     getIssues();
+  };
+
+  const handleClickIssue = (id: string) => {
+    navigate(`/issues/${id}`);
   };
 
   useEffect(() => {
@@ -207,7 +211,7 @@ export const Issues = () => {
           <div className="item-list">
             {
               (doings && doings.length > 0) ? doings.map(issue => (
-                <Item>
+                <Item onClick={() => handleClickIssue(issue.id)}>
                   <p>{ issue.title }</p>
                 </Item>
               )) : <span> No Issues. </span>
@@ -228,7 +232,7 @@ export const Issues = () => {
           <div className="item-list">
             {
               (todos && todos.length > 0) ? todos.map(issue => (
-                <Item>
+                <Item onClick={() => handleClickIssue(issue.id)}>
                   <p>{ issue.title }</p>
                 </Item>
               )) : <span> No Issues. </span>

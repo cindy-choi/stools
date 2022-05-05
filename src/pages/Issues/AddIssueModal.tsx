@@ -50,6 +50,7 @@ function AddIssueModal({ open, onClose, onAdded }:{ open: boolean, onClose?: () 
       title: target?.title?.value,
       link: target?.link?.value,
       status: 'created',
+      audits: [],
     });
 
     if (response?.error) {

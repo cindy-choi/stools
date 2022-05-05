@@ -44,6 +44,8 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
     --red: #ff0085;
     --dark-red: #c90069;
 
+    --disable: var(--black-15);
+
     --black: rgba(0, 0, 0, 1);
     --black-05: rgba(0, 0, 0, 0.05);
     --black-10: rgba(0, 0, 0, 0.1);

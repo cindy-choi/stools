@@ -36,7 +36,7 @@ export const Storage = {
     const list = this.getAllIssue();
     const targetIndex = list.findIndex((item: Issue) => item.id === id);
 
-    if (!targetIndex) return;
+    if (targetIndex < 0) return;
     list.splice(targetIndex, 1);
 
     console.log('after: ', list);
@@ -50,10 +50,9 @@ export const Storage = {
     const list = this.getAllIssue();
     const targetIndex = list.findIndex((item: Issue) => item.id === target.id);
 
-    if (!targetIndex) return;
+    if (targetIndex < 0) return;
     const newList: Array<Issue> = list.map((issue: Issue) => issue.id === target.id ? {...target} : {...issue})
 
-    console.log('after: ', list);
     window.localStorage.setItem(ISSUE_KEY, JSON.stringify(newList));
   },
 };
