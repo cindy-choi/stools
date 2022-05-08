@@ -54,7 +54,7 @@ const IconButton = styled.div`
   }
 `;
 
-export function Timer({ onChange }: { onChange: (counter: number, start: Date, end: Date) => void }) {
+export function Timer({ onStart, onChange }: { onChange: (counter: number, start: Date, end: Date) => void, onStart?: () => void }) {
   const [play, setPlay] = useState<boolean>(false);
   const [second, setSecond] = useState<string>('00');
   const [minute, setMinute] = useState<string>('00');
@@ -66,6 +66,7 @@ export function Timer({ onChange }: { onChange: (counter: number, start: Date, e
     let intervalId: ReturnType<typeof setInterval>;
 
     if (play) {
+      onStart && onStart();
       intervalId = setInterval(() => {
         const _second = (counter % 60) + 1;
         const _minute = Math.floor(counter / 60);
@@ -83,7 +84,7 @@ export function Timer({ onChange }: { onChange: (counter: number, start: Date, e
   }, [play, counter]);
 
   const handlePlay = () => {
-    setPlay(true);
+    setPlay(!play);
     setStart(new Date());
   };
 

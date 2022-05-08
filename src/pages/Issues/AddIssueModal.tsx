@@ -51,6 +51,7 @@ function AddIssueModal({ open, onClose, onAdded }:{ open: boolean, onClose?: () 
       link: target?.link?.value,
       status: 'created',
       audits: [],
+      estimatedTime: 0,
     });
 
     if (response?.error) {

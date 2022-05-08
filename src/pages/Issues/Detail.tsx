@@ -58,37 +58,45 @@ const DetailWrapper = styled.div`
   }
 `;
 
-const TimeTracker = styled.div`
+const ItemDetail = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: space;
   padding: 24px;
 
   .issue-info {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    word-break: break-word;
-    white-space: break-spaces;
+    justify-content: space-between;
+    align-items: flex-end;
     border-bottom: 1px solid var(--black-05);
     margin-bottom: 24px;
     padding-bottom: 12px;
 
-    h2 {
-      font-size: 3rem;
-      font-weight: 500;
-      margin-bottom: 8px;
+    .title {
+      word-break: break-word;
+      white-space: break-spaces;
+
+      h2 {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+    }
+
+    div.status-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 7rem;
+      height: 2rem;
+      border: 2px solid var(--black-30);
+      color: var(--black-30);
+      border-radius: 12px;
+      cursor: default;
     }
   }
-`;
-
-const History = styled.div`
-`;
-
-const ProjectInfo = styled.div`
 `;
 
 function Detail() {
@@ -110,14 +118,35 @@ function Detail() {
     await Storage.updateIssue(issue);
   };
 
+  const handleClickComplete = () => {
+    if (issue?.status === 'finished') {
+    } else {
+    }
+  };
+
+  const handleStart = () => {
+    if (!issue) return;
+
+    if (issue?.status !== 'processing') {
+      Storage.updateIssue({...issue, status: 'processing'});
+    }
+
+    getData();
+  };
+
   const handleTimeChange = (counter: number, start: Date, end: Date) => {
     setEstimateTime(counter);
 
     if (!issue) return;
+    const duration = moment.duration(moment(end).diff(moment(start)));
     const after = issue?.audits;
     after.push({ startDate: start, endDate: end, });
 
-    setIssue({...issue, audits: after });
+    setIssue({
+      ...issue,
+      audits: after,
+      estimatedTime: issue?.estimatedTime + duration.milliseconds(),
+    });
     saveHistory();
   };
 
@@ -131,22 +160,27 @@ function Detail() {
         <span className="material-icons">reply</span> Back
       </div>
       <Window style={{width: '100%'}} variant="secondary">
-        <TimeTracker>
+        <ItemDetail>
           <div className="issue-info">
-            <h2>{ issue?.title }</h2>
-            <a target="_blank" href={issue?.link}>{ issue?.link  || t('issue.no.link') }</a>
+            <div className="title">
+              <h2>{ issue?.title }</h2>
+              <a target="_blank" href={issue?.link}>{ issue?.link  || t('issue.no.link') }</a>
+            </div>
+
+            <div className="status-button" onClick={handleClickComplete}>
+              { t(issue?.status || 'created') }
+            </div>
           </div>
 
           <Timer
+            onStart={handleStart}
             onChange={handleTimeChange}
           />
-        </TimeTracker>
+        </ItemDetail>
       </Window>
 
       <div className="additional-info">
-        <AuditLog
-          issue={issue}
-        />
+        <AuditLog issue={issue} />
       </div>
     </DetailWrapper>
   );

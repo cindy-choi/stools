@@ -20,7 +20,7 @@ export const Storage = {
     if (!item || !item.title) return { error: 'title', };
 
     const list = this.getAllIssue();
-    list.push(item);
+    list.push({ ...item, estimatedTime: 0, });
 
     window.localStorage.setItem(ISSUE_KEY, JSON.stringify(list));
   },

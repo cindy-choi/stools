@@ -4,7 +4,7 @@ export type Issue = {
   status: 'created'|'processing'|'holding'|'finished';
   audits: Array<{ startDate: Date, endDate: Date }>;
   link?: string;
-  estimatedTime?: string;
+  estimatedTime: number;
   projectId?: string;
 };
 

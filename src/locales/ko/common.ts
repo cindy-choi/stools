@@ -8,6 +8,12 @@ export const common = {
   'issue.status.processing': '진행 중',
   'issue.status.holding': '중단',
   'issue.status.finished': '완료',
+
+  'day': '일',
+  'hour': '시간',
+  'minute': '분',
+  'second': '초',
+
 };
 
 export default common;

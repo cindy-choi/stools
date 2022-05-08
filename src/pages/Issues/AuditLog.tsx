@@ -1,6 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import moment from 'moment';
 import Button from 'react-bootstrap/Button';
 import Window from '@/components/Window';
 import type Issue from '@/types/Issue';
@@ -66,8 +67,40 @@ const Title = styled.div`
 const Contents = styled.div`
 `;
 
+const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  background: var(--black-15);
+
+  span.material-icons {
+    opacity: 0;
+  }
+
+  &:hover {
+    span.material-icons {
+      opacity: 1;
+    }
+  }
+`;
+
 function AuditLog({ issue }: { issue: Issue|null, }) {
   const { t } = useTranslation();
+
+  const getEstimateTime = (start: Date, end: Date) => {
+    const _start = moment(start);
+    const _end = moment(end);
+
+    const duration = moment.duration(_end.diff(_start));
+    const days = duration.days() ? `${duration.days()}D ` : '';
+    const hours = duration.hours() ? `${duration.hours()}H ` : '';
+    const minutes = duration.minutes() ? `${duration.minutes()}M ` : '';
+    const seconds = duration.seconds() ? `${duration.seconds()}S` : '';
+    
+    return `${days}${hours}${minutes}${seconds}`;
+  };
 
   return (
     <AuditLogWrapper>
@@ -79,14 +112,20 @@ function AuditLog({ issue }: { issue: Issue|null, }) {
         </div>
       </Title>
 
+      {/* TODO : chart */}
       <Contents>
       {
-        issue?.audits?.map(log => (
-          <p>
-            <span>log.startDate</span>
-            <span>log.endDate</span>
-            <span>{}</span>
-          </p>
+        issue?.audits?.map((log, index) => (
+          <Item key={`log-${index}`}>
+            <p className="log-dates">
+              <span>{ moment(log.startDate).format('MM/DD HH:mm')}</span>
+              <span>~</span>
+              <span>{ moment(log.endDate).format('MM/DD HH:mm')}</span>
+            </p>
+            <p className="log-esitmated-time">{ getEstimateTime(log.startDate, log.endDate) }</p>
+
+            <span className="material-icons">clear</span>
+          </Item>
         ))
       }
       </Contents>
