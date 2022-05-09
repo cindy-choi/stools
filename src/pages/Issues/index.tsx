@@ -28,6 +28,7 @@ const List = styled.div<{ color: string, index: number }>`
   flex-direction: column;
   gap: .5rem;
   height: 100%;
+  min-height: 50%;
   overflow: visible;
 
   .title {
@@ -126,6 +127,7 @@ const SideSlider = styled.div<{ open: boolean }>`
     border: 1px solid var(--black-50);
     h2, div.item-list { display: ${props => props.open ? 'flex' : 'none'}; }
     box-shadow: 7px 5px 0 0 var(--black);
+    background: white;
     
     h2 {
       margin: 2rem;
@@ -218,6 +220,7 @@ export const Issues = () => {
             }
           </div>
         </List>
+
         <List color="yellow" index={2}>
           <div className="title-util">
             <div className="title">
@@ -240,6 +243,7 @@ export const Issues = () => {
 
           </div>
         </List>
+
       </div>
 
       <SideSlider open={openRecent}>
@@ -252,7 +256,7 @@ export const Issues = () => {
 
           <div className="item-list">
             {
-              (todos && todos.length > 0) ? todos.map(issue => (
+              (issues && issues.length > 0) ? issues.map(issue => (
                 <div className="item"> { issue.title } </div>
               )) : <span> No Issues. </span>
             }

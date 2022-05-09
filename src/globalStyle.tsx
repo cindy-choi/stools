@@ -46,6 +46,11 @@ export const GlobalStyle = createGlobalStyle<ThemeInterface>`
 
     --disable: var(--black-15);
 
+    --issue-created-color: var(--yellow);
+    --issue-processing-color: var(--disable);
+    --issue-holding-color: var(--disable);
+    --issue-finished-color: var(--red);
+
     --black: rgba(0, 0, 0, 1);
     --black-05: rgba(0, 0, 0, 0.05);
     --black-10: rgba(0, 0, 0, 0.1);

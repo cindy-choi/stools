@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const TimerWrapper = styled.div`
+const TimerWrapper = styled.div<{ disabled: boolean }>`
+  ${props => props.disabled ? ' > * { color: var(--disable); cursor: default; }' : '' }
+
   .display {
     width: 100%;
     display: flex;
@@ -54,7 +56,7 @@ const IconButton = styled.div`
   }
 `;
 
-export function Timer({ onStart, onChange }: { onChange: (counter: number, start: Date, end: Date) => void, onStart?: () => void }) {
+export function Timer({ disabled = false, onStart, onChange }: { disabled?: boolean, onChange: (counter: number, start: Date, end: Date) => void, onStart?: () => void }) {
   const [play, setPlay] = useState<boolean>(false);
   const [second, setSecond] = useState<string>('00');
   const [minute, setMinute] = useState<string>('00');
@@ -84,12 +86,16 @@ export function Timer({ onStart, onChange }: { onChange: (counter: number, start
   }, [play, counter]);
 
   const handlePlay = () => {
+    if (disabled) return;
+
     setPlay(!play);
     setStart(new Date());
   };
 
   const handleStop = () => {
     if (!counter) return;
+    if (disabled) return;
+
     onChange && onChange(counter, start, new Date());
 
     setCounter(0);
@@ -100,7 +106,7 @@ export function Timer({ onStart, onChange }: { onChange: (counter: number, start
   };
 
   return (
-    <TimerWrapper>
+    <TimerWrapper disabled={disabled}>
       <div className="display">
         <div className="hour">{ hour }</div>
         <p> : </p>
@@ -110,11 +116,11 @@ export function Timer({ onStart, onChange }: { onChange: (counter: number, start
       </div>
 
       <div className="actions">
-        <IconButton onClick={handlePlay}>
+        <IconButton className={(disabled) ? 'disable' : ''} onClick={handlePlay}>
           { !play ?  <span className="material-icons"> play_arrow </span> : <span className="material-icons"> pause </span> }
         </IconButton>
 
-        <IconButton className={!counter ? 'disable' : ''} onClick={handleStop}>
+        <IconButton className={(!counter || disabled) ? 'disable' : ''} onClick={handleStop}>
           <span className="material-icons"> stop </span>
         </IconButton>
       </div>

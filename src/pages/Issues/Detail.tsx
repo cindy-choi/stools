@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Window from '@/components/Window';
 import Timer from '@/components/Timer';
+import IssueStatus from './IssueStatus';
 import AuditLog from './AuditLog';
 import Storage from '@/storage';
 import moment from 'moment';
@@ -58,7 +59,7 @@ const DetailWrapper = styled.div`
   }
 `;
 
-const ItemDetail = styled.div`
+const ItemDetail = styled.div<{ status?: string }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -77,24 +78,13 @@ const ItemDetail = styled.div`
     .title {
       word-break: break-word;
       white-space: break-spaces;
+      text-decoration: ${props => props.status === 'finished' ? 'line-through' : 'none'};
 
       h2 {
         font-size: 3rem;
         font-weight: 500;
         margin-bottom: 8px;
       }
-    }
-
-    div.status-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 7rem;
-      height: 2rem;
-      border: 2px solid var(--black-30);
-      color: var(--black-30);
-      border-radius: 12px;
-      cursor: default;
     }
   }
 `;
@@ -119,9 +109,12 @@ function Detail() {
   };
 
   const handleClickComplete = () => {
-    if (issue?.status === 'finished') {
-    } else {
-    }
+    if (!issue) return;
+    if (issue?.status !== 'processing') return;
+
+    Storage.updateIssue({...issue, status: 'finished'});
+
+    getData();
   };
 
   const handleStart = () => {
@@ -159,20 +152,19 @@ function Detail() {
       <div className="back" onClick={() => navigate('/issues')}>
         <span className="material-icons">reply</span> Back
       </div>
-      <Window style={{width: '100%'}} variant="secondary">
-        <ItemDetail>
+      <Window style={{width: '100%'}} variant={issue?.status !== 'finished' ? 'secondary' : 'light'}>
+        <ItemDetail status={issue?.status}>
           <div className="issue-info">
             <div className="title">
               <h2>{ issue?.title }</h2>
               <a target="_blank" href={issue?.link}>{ issue?.link  || t('issue.no.link') }</a>
             </div>
 
-            <div className="status-button" onClick={handleClickComplete}>
-              { t(issue?.status || 'created') }
-            </div>
+            <IssueStatus status={issue?.status || 'created'} makeFinish={handleClickComplete} />
           </div>
 
           <Timer
+            disabled={issue?.status === 'finished'}
             onStart={handleStart}
             onChange={handleTimeChange}
           />
